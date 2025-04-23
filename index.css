@@ -19,6 +19,12 @@ body {
   scrollbar-width: none;
 }
 
+.site-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 header {
   height: 110px;
   display: flex;
@@ -46,6 +52,22 @@ header a:hover {
   text-decoration: underline;
 }
 
+main {
+  margin-bottom: 84px;
+}
+
+footer {
+  background-color: #161616;
+  color: #aaaaaa;
+  height: 74px;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  font-weight: 500;
+}
+
 .link-button {
   display: inline-block;
   text-align: center;
@@ -54,7 +76,7 @@ header a:hover {
   padding: 0.75rem 1.375rem;
   color: initial;
   font-weight: 700;
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer;
   transition: transform 0.1s ease-in-out;
 }
@@ -67,10 +89,10 @@ header a:hover {
 .home-container {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.46), rgba(0, 0, 0, 0.46)),
     url("./assets/images/home-hero.png") no-repeat center center;
-  -webkit-background-size: 100% 100%;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  background-size: 100% 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   min-height: 350px;
   color: white;
   padding: 45px 23px;
@@ -126,16 +148,11 @@ header a:hover {
 }
 
 .about-page-cta {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
   background-color: #ffcc8d;
   color: #161616;
-  padding: 32px;
-  margin: 27px;
+  padding-inline: 32px;
+  padding-bottom: 32px;
+  margin-inline: 27px;
   border-radius: 5px;
 }
 
@@ -243,6 +260,9 @@ i[class*="van-type-"] {
   text-decoration: none;
 }
 
+.van-detail-container .back-button:visited {
+}
+
 .van-detail-container .back-button span {
   text-decoration: underline;
 }
@@ -281,4 +301,21 @@ i[class*="van-type-"] {
   background-color: #ff8c38;
   color: white;
   font-size: 1.125rem;
+}
+
+.host-nav {
+  display: flex;
+}
+
+.host-nav a {
+  text-decoration: none;
+  color: #4d4d4d;
+  font-weight: 500;
+  padding: 5px 20px;
+}
+
+.host-nav a:hover {
+  color: #161616;
+  text-decoration: underline;
+  font-weight: 600;
 }
