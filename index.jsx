@@ -1,10 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./server";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
-
-import "./server";
 import Vans from "./pages/Van/Vans";
 import VanDetail from "./pages/Van/VanDetail";
 import Layout from "./components/Layout";
@@ -17,6 +16,7 @@ import HostVanDetail from "./pages/Host/HostVanDetail";
 import HostVanDetailInfo from "./pages/Host/HostVanDetailInfo";
 import HostVanDetailPricing from "./pages/Host/HostVanDetailPricing";
 import HostVanDetailPhotos from "./pages/Host/HostVanDetailsPhotos";
+import ErrorPage from "./pages/Error/ErrorPage";
 
 function App() {
   return (
@@ -38,6 +38,7 @@ function App() {
             </Route>
             <Route path="reviews" element={<HostReviews />} />
           </Route>
+          <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -10,6 +10,11 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+a {
+  text-decoration: unset;
+  color: unset;
+}
+
 body::-webkit-scrollbar {
   display: none;
 }
@@ -54,6 +59,7 @@ header a:hover {
 
 main {
   margin-bottom: 84px;
+  flex: 1;
 }
 
 footer {
@@ -105,7 +111,6 @@ footer {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  min-height: 350px;
   color: white;
   padding: 45px 23px;
 }
@@ -142,7 +147,7 @@ footer {
 
 /*** ABOUT PAGE ***/
 .about-hero-image {
-  max-width: 100%;
+  width: 100%;
 }
 
 .about-page-content {
@@ -182,6 +187,15 @@ footer {
 /*** VAN PAGES ***/
 .van-list-container {
   padding-inline: 23px;
+}
+
+.van-list-filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.van-list-filter-buttons > a {
+  margin-right: 15px;
 }
 
 .van-list {
@@ -270,9 +284,6 @@ i[class*="van-type-"] {
 .van-detail-container .back-button {
   color: black;
   text-decoration: none;
-}
-
-.van-detail-container .back-button:visited {
 }
 
 .van-detail-container .back-button span {
@@ -447,4 +458,22 @@ i[class*="van-type-"] {
 .host-van-detail-image {
   height: 100px;
   border-radius: 5px;
+}
+
+.error-container {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.return-home {
+  padding: 20px 35px;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  letter-spacing: 1.25px;
+  font-weight: 500;
 }
