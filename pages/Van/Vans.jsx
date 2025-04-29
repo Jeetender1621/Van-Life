@@ -1,18 +1,40 @@
 import { useState, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useLoaderData } from "react-router-dom";
+import { getAllVans } from "../../utilities/allVansApi";
 
+export function getVansData() {
+  return getAllVans();
+}
 export default function Vans() {
-  const [vansList, setVansList] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [vansList, setVansList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState(null);
+  const data = useLoaderData();
+  console.log(data);
 
   const typeFilter = searchParams.get("type");
 
   useEffect(() => {
-    fetch("/api/vans")
-      .then((data) => data.json())
-      .then((vans) => setVansList(vans.vans))
-      .catch((err) => console.log(err));
+    setLoading(true);
+    getAllVans()
+      .then((vans) => {
+        setVansList(vans);
+      })
+      .catch((err) => {
+        setErrors(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
+
+  if (loading) {
+    return <h1 aria-live="polite">Loading...</h1>;
+  }
+  if (errors) {
+    return <h1 aria-live="assertive"> Something failed: {errors}</h1>;
+  }
 
   const vansListDisplay = typeFilter
     ? vansList.filter((van) => van.type === typeFilter)

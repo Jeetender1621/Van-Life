@@ -1,10 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./server";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Vans from "./pages/Van/Vans";
+import Vans, { getVansData } from "./pages/Van/Vans";
 import VanDetail from "./pages/Van/VanDetail";
 import Layout from "./components/Layout";
 import HostIncome from "./pages/Host/HostIncome";
@@ -18,31 +25,30 @@ import HostVanDetailPricing from "./pages/Host/HostVanDetailPricing";
 import HostVanDetailPhotos from "./pages/Host/HostVanDetailsPhotos";
 import ErrorPage from "./pages/Error/ErrorPage";
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="vans" element={<Vans />} />
-          <Route path="vans/:id" element={<VanDetail />} />
-          <Route path="host" element={<HostLayout />}>
-            <Route index element={<HostDashboard />} />
-            <Route path="income" element={<HostIncome />} />
-            <Route path="vans" element={<HostVans />} />
-            <Route path="vans/:id" element={<HostVanDetail />}>
-              <Route index element={<HostVanDetailInfo />} />
-              <Route path="pricing" element={<HostVanDetailPricing />} />
-              <Route path="photos" element={<HostVanDetailPhotos />} />
-            </Route>
-            <Route path="reviews" element={<HostReviews />} />
-          </Route>
-          <Route path="*" element={<ErrorPage />} />
+const appRouter = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="about" element={<About />} />
+      <Route path="vans" loader={getVansData} element={<Vans />} />
+      <Route path="vans/:id" element={<VanDetail />} />
+      <Route path="host" element={<HostLayout />}>
+        <Route index element={<HostDashboard />} />
+        <Route path="income" element={<HostIncome />} />
+        <Route path="vans" element={<HostVans />} />
+        <Route path="vans/:id" element={<HostVanDetail />}>
+          <Route index element={<HostVanDetailInfo />} />
+          <Route path="pricing" element={<HostVanDetailPricing />} />
+          <Route path="photos" element={<HostVanDetailPhotos />} />
         </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+        <Route path="reviews" element={<HostReviews />} />
+      </Route>
+      <Route path="*" element={<ErrorPage />} />
+    </Route>
+  )
+);
+function App() {
+  return <RouterProvider router={appRouter} />;
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);
