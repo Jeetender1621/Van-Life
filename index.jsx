@@ -25,6 +25,7 @@ import HostVanDetailPricing from "./pages/Host/HostVanDetailPricing";
 import HostVanDetailPhotos from "./pages/Host/HostVanDetailsPhotos";
 import ErrorPage from "./pages/Error/ErrorPage";
 import ErrorFetchingVans from "./pages/Error/ErrorFetchingVans";
+import LoginPage from "./pages/Login";
 
 const appRouter = createBrowserRouter(
   createRoutesFromElements(
@@ -49,6 +50,7 @@ const appRouter = createBrowserRouter(
         </Route>
         <Route path="reviews" element={<HostReviews />} />
       </Route>
+      <Route path="login" element={<LoginPage />} />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )
