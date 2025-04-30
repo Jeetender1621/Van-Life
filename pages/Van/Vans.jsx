@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Link, useSearchParams, useLoaderData } from "react-router-dom";
 import { getAllVans } from "../../utilities/allVansApi";
 
@@ -7,34 +6,10 @@ export function getVansData() {
 }
 export default function Vans() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [vansList, setVansList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState(null);
-  const data = useLoaderData();
-  console.log(data);
+
+  const vansList = useLoaderData();
 
   const typeFilter = searchParams.get("type");
-
-  useEffect(() => {
-    setLoading(true);
-    getAllVans()
-      .then((vans) => {
-        setVansList(vans);
-      })
-      .catch((err) => {
-        setErrors(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
-    return <h1 aria-live="polite">Loading...</h1>;
-  }
-  if (errors) {
-    return <h1 aria-live="assertive"> Something failed: {errors}</h1>;
-  }
 
   const vansListDisplay = typeFilter
     ? vansList.filter((van) => van.type === typeFilter)
@@ -88,7 +63,7 @@ export default function Vans() {
           onClick={() => handleFilterChange("type", "luxury")}
           className={`van-type luxury ${
             typeFilter === "luxury" ? "selected" : ""
-          }`} //to="?type="luxury"// setSearchParams({type: "luxury"}) // setSearchParams("?type=luxury")
+          }`} // Link to="?type="luxury"// setSearchParams({type: "luxury"}) // setSearchParams("?type=luxury")
         >
           Luxury
         </button>

@@ -24,13 +24,19 @@ import HostVanDetailInfo from "./pages/Host/HostVanDetailInfo";
 import HostVanDetailPricing from "./pages/Host/HostVanDetailPricing";
 import HostVanDetailPhotos from "./pages/Host/HostVanDetailsPhotos";
 import ErrorPage from "./pages/Error/ErrorPage";
+import ErrorFetchingVans from "./pages/Error/ErrorFetchingVans";
 
 const appRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
-      <Route path="vans" loader={getVansData} element={<Vans />} />
+      <Route
+        path="vans"
+        loader={getVansData}
+        element={<Vans />}
+        errorElement={<ErrorFetchingVans />}
+      />
       <Route path="vans/:id" element={<VanDetail />} />
       <Route path="host" element={<HostLayout />}>
         <Route index element={<HostDashboard />} />
