@@ -1,8 +1,8 @@
 import { Link, useSearchParams, useLoaderData } from "react-router-dom";
-import { getAllVans } from "../../utilities/allVansApi";
+import { getVans } from "../../utilities/vanAPIs";
 
 export function getVansData() {
-  return getAllVans();
+  return getVans();
 }
 export default function Vans() {
   const [searchParams, setSearchParams] = useSearchParams();
