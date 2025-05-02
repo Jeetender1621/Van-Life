@@ -25,7 +25,7 @@ import HostVanDetailPricing from "./pages/Host/HostVanDetailPricing";
 import HostVanDetailPhotos from "./pages/Host/HostVanDetailsPhotos";
 import ErrorPage from "./pages/Error/ErrorPage";
 import ErrorFetchingVans from "./pages/Error/ErrorFetchingVans";
-import LoginPage, { loginLoader } from "./pages/Login";
+import LoginPage, { loginActionSubmit, loginLoader } from "./pages/Login";
 import { requireAuth } from "./utilities/requireAuth";
 
 const appRouter = createBrowserRouter(
@@ -73,7 +73,12 @@ const appRouter = createBrowserRouter(
           element={<HostReviews />}
         />
       </Route>
-      <Route path="login" element={<LoginPage />} loader={loginLoader} />
+      <Route
+        path="login"
+        element={<LoginPage />}
+        loader={loginLoader}
+        action={loginActionSubmit}
+      />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )
