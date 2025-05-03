@@ -9,8 +9,8 @@ import {
 import { getHostVans } from "../../utilities/vanAPIs";
 import { requireAuth } from "../../utilities/requireAuth";
 
-export async function getHostVanDetail({ params }) {
-  await requireAuth();
+export async function getHostVanDetail({ request, params }) {
+  await requireAuth(request);
   return getHostVans(params.id);
 }
 export default function HostVanDetail() {

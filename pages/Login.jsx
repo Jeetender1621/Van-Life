@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Form, redirect, useLoaderData, useNavigate } from "react-router-dom";
+import {
+  Form,
+  redirect,
+  useActionData,
+  useLoaderData,
+  useNavigate,
+  useNavigation,
+  useSearchParams,
+} from "react-router-dom";
 import { loginUser } from "../utilities/loginUser";
 import imageUrl from "/assets/images/avatar-icon.svg";
 
@@ -11,19 +19,28 @@ export async function loginActionSubmit({ request }) {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
-  const data = await loginUser({ email, password });
-  if (data.user) {
-    localStorage.setItem("loggedin", true);
-    return redirect("/host");
+  const pathNameFromSearchParams =
+    new URL(request.url).searchParams.get("redirectTo") || "/host";
+  console.log(pathNameFromSearchParams);
+  try {
+    const data = await loginUser({ email, password });
+
+    if (data.user) {
+      localStorage.setItem("loggedin", true);
+      return redirect(pathNameFromSearchParams);
+    }
+  } catch (err) {
+    return err.message;
   }
-  return null;
 }
 
 export default function LoginPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const message = useLoaderData();
   const navigate = useNavigate();
-  const [status, setStatus] = useState("idle");
-  const [error, setError] = useState(null);
+  const actionError = useActionData();
+  const navigation = useNavigation();
+  const status = navigation.state;
 
   return (
     <div className="login-container">
@@ -46,7 +63,10 @@ export default function LoginPage() {
             }}
             onClick={() => {
               localStorage.removeItem("loggedin");
-              navigate("/");
+              navigate("/login");
+              setSearchParams((prevParams) => {
+                prevParams.delete("message");
+              });
             }}
           >
             Logout
@@ -55,14 +75,15 @@ export default function LoginPage() {
       ) : (
         <>
           <h1>Sign in to your account</h1>
-          {error && <h3 style={{ color: "red" }}>{error.message}</h3>}
+          {actionError && <h3 style={{ color: "red" }}>{actionError}</h3>}
           {message && <h3 style={{ color: "red" }}>{message}</h3>}
-          <Form method="POST" className="login-form">
+          <Form method="POST" className="login-form" replace>
             <input name="email" type="email" placeholder="Email address" />
             <input name="password" type="password" placeholder="Password" />
             <button
               style={{
                 cursor: status === "submitting" ? "not-allowed" : "pointer",
+                backgroundColor: status === "submitting" ? "grey" : "#ff8c38",
               }}
               disabled={status === "submitting"}
             >

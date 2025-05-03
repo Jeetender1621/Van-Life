@@ -44,15 +44,15 @@ const appRouter = createBrowserRouter(
         <Route
           index
           element={<HostDashboard />}
-          loader={async () => {
-            return await requireAuth();
+          loader={async ({ request }) => {
+            return await requireAuth(request);
           }}
         />
         <Route
           path="income"
           element={<HostIncome />}
-          loader={async () => {
-            return await requireAuth();
+          loader={async ({ request }) => {
+            return await requireAuth(request);
           }}
         />
         <Route path="vans" loader={getHostVansData} element={<HostVans />} />
@@ -61,14 +61,32 @@ const appRouter = createBrowserRouter(
           loader={getHostVanDetail}
           element={<HostVanDetail />}
         >
-          <Route index element={<HostVanDetailInfo />} />
-          <Route path="pricing" element={<HostVanDetailPricing />} />
-          <Route path="photos" element={<HostVanDetailPhotos />} />
+          <Route
+            index
+            element={<HostVanDetailInfo />}
+            loader={async ({ request }) => {
+              return await requireAuth(request);
+            }}
+          />
+          <Route
+            path="pricing"
+            element={<HostVanDetailPricing />}
+            loader={async ({ request }) => {
+              return await requireAuth(request);
+            }}
+          />
+          <Route
+            path="photos"
+            element={<HostVanDetailPhotos />}
+            loader={async ({ request }) => {
+              return await requireAuth(request);
+            }}
+          />
         </Route>
         <Route
           path="reviews"
-          loader={async () => {
-            return await requireAuth();
+          loader={async ({ request }) => {
+            return await requireAuth(request);
           }}
           element={<HostReviews />}
         />
