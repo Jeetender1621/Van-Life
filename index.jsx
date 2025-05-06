@@ -39,7 +39,12 @@ const appRouter = createBrowserRouter(
         element={<Vans />}
         errorElement={<ErrorFetchingVans />}
       />
-      <Route path="vans/:id" loader={getVanDetail} element={<VanDetail />} />
+      <Route
+        path="vans/:id"
+        loader={getVanDetail}
+        element={<VanDetail />}
+        errorElement={<ErrorFetchingVans />}
+      />
       <Route path="host" element={<HostLayout />}>
         <Route
           index
@@ -55,11 +60,17 @@ const appRouter = createBrowserRouter(
             return await requireAuth(request);
           }}
         />
-        <Route path="vans" loader={getHostVansData} element={<HostVans />} />
+        <Route
+          path="vans"
+          loader={getHostVansData}
+          element={<HostVans />}
+          errorElement={<ErrorFetchingVans />}
+        />
         <Route
           path="vans/:id"
           loader={getHostVanDetail}
           element={<HostVanDetail />}
+          errorElement={<ErrorFetchingVans />}
         >
           <Route
             index
